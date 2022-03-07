@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.welcome');
 });
 
 
-Route::get('/{view}', function (string $view) {
-    return view($view);
-});
+Route::get('/about', fn()=> view('pages.about'));
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.list');
+
+
+Route::get('/news/{id}', [NewsController::class, 'single_news'])
+    ->where('id', '\d+')
+    ->name('news.show');
+
+
+Route::get('/news/category/{category_id}', [NewsController::class, 'news_by_category'])
+    ->where('category_id', '\d+')
+    ->name('news.category.show');
+
+
+//Route::get('/news', [])->name();
