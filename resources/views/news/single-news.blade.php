@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts/main')
 @section('content')
 
     <h2>{{$single_news->title}}</h2>
