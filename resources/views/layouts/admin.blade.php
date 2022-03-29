@@ -47,6 +47,19 @@
         <x-admin.menu></x-admin.menu>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+            @yield('content-header')
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <x-alert category="danger" :message="$error"></x-alert>
+                @endforeach
+            @endif
+
+            @if(session()->has('message'))
+                <x-alert category="success" :message="session()->get('message')"></x-alert>
+            @endif
+
             @yield('content')
         </main>
 
@@ -57,8 +70,7 @@
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="{{asset('js/dashboard.js')}}"></script>
+
 
 @stack('js') {{--сюда можно подключить необходимый js код либо любой другой код для конкрентного файла при помощи директивы @push @endpush--}}
 

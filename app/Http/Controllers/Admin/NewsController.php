@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreNewsRequest;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -12,14 +15,14 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function index()
     {
         $news = $this->get_news();
-
         return view('admin/news/index', [
             'news_list' => $news,
+            'title' => 'Almost TIMES',
+            'subtitle' => 'The best news aggregator in the galaxy'
         ]);
-
     }
 
     /**
@@ -29,18 +32,19 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/news/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(StoreNewsRequest $request)
     {
-        //
+//        dd($request->only('status', 'title', 'category', 'description', 'short_description'));
+//        dd($request->collect());
+
+        $request->validated();
+//        $validated = $request->safe()->only(['name', 'description']);
+
+        return redirect()->route('admin.news.create')->with('message', 'The article has been inserted');
     }
 
     /**

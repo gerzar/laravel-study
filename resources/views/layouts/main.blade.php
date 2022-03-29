@@ -25,6 +25,16 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
 
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <x-alert category="danger" :message="$error"></x-alert>
+                @endforeach
+            @endif
+
+            @if(session()->has('message'))
+                <x-alert category="success" :message="session()->get('message')"></x-alert>
+            @endif
+
             @yield('content')
 
         </div>

@@ -27,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/categories/create');
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('admin.categories.create')->with('message', 'The category has been inserted.');
     }
 
     /**

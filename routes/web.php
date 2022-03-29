@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FeedbackController;
 use \App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
@@ -42,3 +43,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::resource('categories', AdminCategoriesController::class);
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 });
+
+
+Route::post('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
