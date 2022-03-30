@@ -8,25 +8,29 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $news = $this->get_news();
 
-        return view('pages.news', [
-            'news_list' => $news
+        return view('news.index', [
+            'news_list' => $news,
+            'title' => 'Almost TIMES',
+            'subtitle' => 'The best news aggregator in the galaxy'
         ]);
     }
 
-    public function single_news(int $id)
+    public function single_news(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $news = $this->get_news($id);
 
-        return view('pages.single-news', [
-            'single_news' => $news
+        return view('news.single-news', [
+            'single_news' => $news,
+            'title' => $news->title,
+            'subtitle' => $news->short_description
         ]);
     }
 
-    public function news_by_category(int $category_id)
+    public function news_by_category(int $category_id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $news = $this->get_news();
 
@@ -36,8 +40,10 @@ class NewsController extends Controller
             }
         }
 
-        return view('pages.news', [
-            'news_list' => $result
+        return view('news.index', [
+            'news_list' => $result,
+            'title' => $result[0]->category_name,
+            'subtitle' => 'Now you see the news this category only'
         ]);
 
     }
